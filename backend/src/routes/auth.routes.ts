@@ -60,7 +60,7 @@ router.post('/login', async (req, res): Promise<any> => {
         }
 
         //Genera el token de sesión
-        const token = jwt.sign({ id: usuario.id }, JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ userId: usuario.id }, JWT_SECRET, { expiresIn: '1d' });
 
         res.json({ mensaje: 'Login exitoso', token });
     } catch (error) {
