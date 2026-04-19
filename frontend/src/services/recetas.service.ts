@@ -45,3 +45,56 @@ export const crearReceta = async (datos: DatosNuevaReceta) => {
 
     return data;
 };
+
+export const actualizarReceta = async (id: number, datos: DatosNuevaReceta) => {
+    const token = localStorage.getItem('token');
+
+    const respuesta = await fetch(`${API_URL}/editar/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(datos)
+    });
+
+    const data = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al actualizar la receta');
+    }
+
+    return data;
+};
+
+export const eliminarReceta = async (id: number) => {
+    const token = localStorage.getItem('token');
+    const respuesta = await fetch(`${API_URL}/eliminar/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    const data = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al eliminar la receta');
+    }
+
+    return data;
+};
+
+export const obtenerRecetaPublica = async (id: string) => {
+    const respuesta = await fetch(`http://localhost:3000/api/recetas/publicas/${id}`, {
+        method: 'GET'
+    });
+
+    const data = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al obtener la receta pública');
+    }
+
+    return data;
+};

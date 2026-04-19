@@ -3,6 +3,7 @@ import { Navbar } from './components/navbar';
 import { Login } from './pages/login';
 import { Registro } from './pages/registro';
 import { MisRecetas } from './pages/misRecetas';
+import { RecetaPublica } from './pages/RecetaPublica';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/mis-recetas" element={<MisRecetas />} />
+          <Route path="/receta/:id" element={<RecetaPublica />} />
         </Routes>
       </div>
     </BrowserRouter>
