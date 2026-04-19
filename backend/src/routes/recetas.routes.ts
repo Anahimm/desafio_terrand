@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Response, Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { verificarToken, AuthRequest } from '../middlewares/auth.middleware';
 
@@ -6,7 +6,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 //CREAR UNA RECETA
-router.post('/', verificarToken, async (req: AuthRequest, res: Response) => {
+router.post('/crear', verificarToken, async (req: AuthRequest, res: Response) => {
     try {
         const { titulo, descripcion, ingredientes, imagen_url } = req.body;
         const usuario_id = req.usuario_id;
@@ -33,7 +33,7 @@ router.post('/', verificarToken, async (req: AuthRequest, res: Response) => {
 });
 
 //OBTENER RECETAS PROPIAS
-router.get('/', verificarToken, async (req: AuthRequest, res: Response) => {
+router.get('/mis-recetas', verificarToken, async (req: AuthRequest, res: Response) => {
     try {
         const usuario_id = req.usuario_id;
 
@@ -50,7 +50,7 @@ router.get('/', verificarToken, async (req: AuthRequest, res: Response) => {
 });
 
 //ACTUALIZAR UNA RECETA
-router.put('/:id', verificarToken, async (req: AuthRequest, res: Response) => {
+router.put('/editar/:id', verificarToken, async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params;
         const { titulo, descripcion, ingredientes, imagen_url } = req.body;
@@ -82,7 +82,7 @@ router.put('/:id', verificarToken, async (req: AuthRequest, res: Response) => {
 });
 
 //ELIMINAR UNA RECETA
-router.delete('/:id', verificarToken, async (req: AuthRequest, res: Response) => {
+router.delete('/eliminar/:id', verificarToken, async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params;
         const usuario_id = req.usuario_id;
@@ -101,6 +101,37 @@ router.delete('/:id', verificarToken, async (req: AuthRequest, res: Response) =>
         res.json({ mensaje: 'Receta eliminada correctamente' });
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar la receta' });
+    }
+});
+
+//OBTENER UNA RECETA PUBLICA
+router.get('/publicas/:id', async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const receta = await prisma.receta.findUnique({
+            where: {
+                id: Number(id)
+            },
+            //solo mostrará nombre y apellido del autor
+            include: {
+                usuario: {
+                    select: {
+                        nombre: true,
+                        apellido: true
+                    }
+                }
+            }
+        });
+
+        if (!receta) {
+            res.status(404).json({ error: 'La receta no existe o fue eliminada' });
+            return;
+        }
+
+        res.json(receta);
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno al cargar la receta pública' });
     }
 });
 
