@@ -1,0 +1,1 @@
+export const MisRecetas = () => <h2>Mis Recetas</h2>;

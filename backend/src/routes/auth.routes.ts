@@ -8,8 +8,8 @@ dotenv.config();
 
 const router = Router();
 const prisma = new PrismaClient();
-// Llave secreta para firmar los inicios de sesión
-const JWT_SECRET = process.env.JWT_SECRET || 'super_secreto_recetas';
+// Llave para firmar los inicios de sesión
+const JWT_SECRET = process.env.JWT_SECRET || 'secreto_recetas';
 
 // RUTA DE REGISTRO
 router.post('/registro', async (req, res): Promise<any> => {

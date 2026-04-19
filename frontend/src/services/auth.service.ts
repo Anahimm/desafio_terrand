@@ -1,0 +1,29 @@
+interface DatosRegistro {
+    nombre: string;
+    apellido: string;
+    email: string;
+    password: string;
+}
+
+
+const API_URL = 'http://localhost:3000/api/auth';
+
+export const registrarUsuario = async (datos: DatosRegistro) => {
+    const respuesta = await fetch(`${API_URL}/registro`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        //de JavaScript a texto JSON
+        body: JSON.stringify(datos)
+    });
+
+    const data = await respuesta.json();
+
+    //si el status code es 400 o 500, lanza el error para que lo ataje el componente
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al registrarse');
+    }
+
+    return data;
+};

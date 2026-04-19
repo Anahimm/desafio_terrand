@@ -1,0 +1,1 @@
+export const Login = () => <h2>Pantalla de Login</h2>;
