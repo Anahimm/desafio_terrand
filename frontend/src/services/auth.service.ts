@@ -27,3 +27,26 @@ export const registrarUsuario = async (datos: DatosRegistro) => {
 
     return data;
 };
+
+interface DatosLogin {
+    email: string;
+    password: string;
+}
+
+export const iniciarSesion = async (datos: DatosLogin) => {
+    const respuesta = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    });
+
+    const data = await respuesta.json();
+
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al iniciar sesión');
+    }
+
+    return data;
+};

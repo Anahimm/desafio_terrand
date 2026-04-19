@@ -36,7 +36,6 @@ router.post('/crear', verificarToken, async (req: AuthRequest, res: Response) =>
 router.get('/mis-recetas', verificarToken, async (req: AuthRequest, res: Response) => {
     try {
         const usuario_id = req.usuario_id;
-
         const misRecetas = await prisma.receta.findMany({
             where: {
                 usuario_id: usuario_id

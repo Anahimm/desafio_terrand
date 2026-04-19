@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super_secreto_recetas';
+const JWT_SECRET = process.env.JWT_SECRET || 'secreto_recetas';
 
 //peticiones con el ID del usuario logueado
 export interface AuthRequest extends Request {
