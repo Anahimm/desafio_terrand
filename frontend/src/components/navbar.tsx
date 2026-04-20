@@ -4,8 +4,8 @@ import styles from './Navbar.module.css';
 
 export const Navbar = () => {
     const { nombreUsuario, cerrarSesion } = useAuth();
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
     const handleLogout = () => {
         cerrarSesion();
         navigate('/login');
@@ -20,10 +20,10 @@ export const Navbar = () => {
             </div>
 
             <ul className={styles.links}>
+                <li><Link to="/explorar">Recetas públicas</Link></li>
                 {nombreUsuario ? (
                     <>
                         <li><Link to="/mis-recetas">Mis Recetas</Link></li>
-                        <li className={styles.userName}>Hola, {nombreUsuario}</li>
                         <li>
                             <button onClick={handleLogout} className={styles.btnLogout}>
                                 Cerrar Sesión

@@ -1,0 +1,21 @@
+.contenedor {
+    display: flex;
+    gap: 10px;
+}
+
+.chefSticker {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 15px;
+    object-fit: cover;
+    filter: grayscale(100%) opacity(50%);
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.chefActivo {
+    filter: none;
+    border-color: #ff9f1c; 
+    transform: scale(1.1); 
+}

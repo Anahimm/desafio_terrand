@@ -86,7 +86,7 @@ export const eliminarReceta = async (id: number) => {
 };
 
 export const obtenerRecetaPublica = async (id: string) => {
-    const respuesta = await fetch(`http://localhost:3000/api/recetas/publicas/${id}`, {
+    const respuesta = await fetch(`${API_URL}/publicas/${id}`, {
         method: 'GET'
     });
 
@@ -94,6 +94,37 @@ export const obtenerRecetaPublica = async (id: string) => {
 
     if (!respuesta.ok) {
         throw new Error(data.error || 'Error al obtener la receta pública');
+    }
+
+    return data;
+};
+
+export const obtenerMuroPublico = async () => {
+    const respuesta = await fetch(`${API_URL}/publicas`, {
+        method: 'GET'
+    });
+
+    const data = await respuesta.json();
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al obtener el muro público');
+    }
+
+    return data;
+};
+
+export const enviarCalificacion = async (recetaId: number, puntaje: number, token: string) => {
+    const respuesta = await fetch(`${API_URL}/calificar/${recetaId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ puntaje })
+    });
+
+    const data = await respuesta.json();
+    if (!respuesta.ok) {
+        throw new Error(data.error || 'Error al enviar la calificación');
     }
 
     return data;

@@ -5,6 +5,7 @@ import { Login } from './pages/login';
 import { Registro } from './pages/registro';
 import { MisRecetas } from './pages/misRecetas';
 import { RecetaPublica } from './pages/recetaPublica';
+import { Explorar } from './pages/Explorar';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/registro" element={<Registro />} />
             <Route path="/mis-recetas" element={<MisRecetas />} />
             <Route path="/receta/:id" element={<RecetaPublica />} />
+            <Route path="/explorar" element={<Explorar />} />
           </Routes>
         </div>
       </BrowserRouter>
