@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { iniciarSesion } from '../services/auth.service';
+import { iniciarSesion as loginAPI } from '../services/auth.service';
+import { useAuth } from '../context/AuthContext';
 import styles from './Login.module.css';
 
 export const Login = () => {
     const navigate = useNavigate();
-
+    const { iniciarSesion } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -22,18 +23,14 @@ export const Login = () => {
         setError('');
 
         try {
-            const respuesta = await iniciarSesion({
+            const respuesta = await loginAPI({
                 email: formData.email,
                 password: formData.password
             });
+            const nombreUsuario = respuesta.usuario?.nombre || 'Chef';
+            iniciarSesion(nombreUsuario, respuesta.token);
 
-            localStorage.setItem('token', respuesta.token);
-            if (respuesta.usuario && respuesta.usuario.nombre) {
-                localStorage.setItem('nombreUsuario', respuesta.usuario.nombre);
-                alert(`¡Bienvenida/o de vuelta, ${respuesta.usuario.nombre}!`);
-            } else {
-                alert('¡Bienvenida/o de vuelta!');
-            }
+            alert(`¡Bienvenida/o de vuelta, ${nombreUsuario}!`);
             navigate('/mis-recetas');
 
         } catch (err) {

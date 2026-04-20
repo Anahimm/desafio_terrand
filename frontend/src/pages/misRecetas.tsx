@@ -1,16 +1,8 @@
 import { useEffect, useState } from 'react';
 import { obtenerMisRecetas, crearReceta, actualizarReceta, eliminarReceta } from '../services/recetas.service';
+import { RecetaCard, type Receta } from '../components/recetaCard';
+import { RecetaModal} from '../components/recetaModal';
 import styles from './misRecetas.module.css';
-
-interface Receta {
-    id: number;
-    titulo: string;
-    descripcion: string;
-    ingredientes: string;
-    imagen_url?: string;
-    fecha_creacion: string;
-    usuario_id: number;
-}
 
 export const MisRecetas = () => {
     const [recetas, setRecetas] = useState<Receta[]>([]);
@@ -40,6 +32,7 @@ export const MisRecetas = () => {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         cargarRecetas();
     }, []);
 
@@ -130,74 +123,25 @@ export const MisRecetas = () => {
             ) : (
                 <div className={styles.gridRecetas}>
                     {recetas.map(receta => (
-                        <article key={receta.id} className={styles.card}>
-                            {receta.imagen_url && (
-                                <div className={styles.imageWrapper}>
-                                    <img src={receta.imagen_url} alt={receta.titulo} />
-                                </div>
-                            )}
-                            <div className={styles.cardBody}>
-                                <span className={styles.fecha}>
-                                    {new Date(receta.fecha_creacion).toLocaleDateString()}
-                                </span>
-                                <h3>{receta.titulo}</h3>
-                                <p className={styles.descripcion}>{receta.descripcion}</p>
-                                <div className={styles.detalles}>
-                                    <strong>Ingredientes:</strong>
-                                    <p>{receta.ingredientes}</p>
-                                </div>
-
-                                <div className={styles.accionesReceta}>
-                                    <button onClick={() => abrirModalEditar(receta)} className={`${styles.btn} ${styles.btnChico} ${styles.btnOutlineAzul}`}>Editar</button>
-                                    <button onClick={() => handleEliminar(receta.id)} className={`${styles.btn} ${styles.btnChico} ${styles.btnOutlineRojo}`}>Eliminar</button>
-                                    <button
-                                        onClick={() => copiarLinkPublico(receta.id)}
-                                        className={`${styles.btn} ${styles.btnChico} ${styles.btnGris}`}
-                                    >
-                                        🔗 Copiar Link
-                                    </button>
-                                </div>
-                            </div>
-                        </article>
+                        <RecetaCard
+                            key={receta.id}
+                            receta={receta}
+                            onEditar={() => abrirModalEditar(receta)}
+                            onEliminar={() => handleEliminar(receta.id)}
+                            onCopiar={() => copiarLinkPublico(receta.id)}
+                        />
                     ))}
                 </div>
             )}
 
-            {isModalOpen && (
-                <div className={styles.modalOverlay}>
-                    <div className={styles.modalContent}>
-                        <h2>{recetaEditandoId ? 'Editar Receta' : 'Nueva Receta'}</h2>
-
-                        <form onSubmit={handleSubmit} className={styles.formReceta}>
-                            <input
-                                type="text" name="titulo" placeholder="Título de la receta" required
-                                value={nuevaReceta.titulo} onChange={handleChange}
-                            />
-                            <textarea
-                                name="descripcion" placeholder="Descripción" required
-                                value={nuevaReceta.descripcion} onChange={handleChange}
-                            />
-                            <textarea
-                                name="ingredientes" placeholder="Ingredientes" required
-                                value={nuevaReceta.ingredientes} onChange={handleChange}
-                            />
-                            <input
-                                type="url" name="imagen_url" placeholder="Link de una imagen (Opcional)"
-                                value={nuevaReceta.imagen_url} onChange={handleChange}
-                            />
-
-                            <div className={styles.modalBotones}>
-                                <button type="button" className={`${styles.btn} ${styles.btnNormal} ${styles.btnGris}`} onClick={cerrarModal}>
-                                    Cancelar
-                                </button>
-                                <button type="submit" className={`${styles.btn} ${styles.btnNormal} ${styles.btnRojo}`}>
-                                    {recetaEditandoId ? 'Guardar Cambios' : 'Guardar Receta'}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+            <RecetaModal
+                isOpen={isModalOpen}
+                onClose={cerrarModal}
+                onSubmit={handleSubmit}
+                isEditing={!!recetaEditandoId}
+                nuevaReceta={nuevaReceta}
+                onChange={handleChange}
+            />
         </div>
     );
 };

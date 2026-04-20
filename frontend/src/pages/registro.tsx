@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registrarUsuario } from '../services/auth.service';
+import { useAuth } from '../context/AuthContext';
 import styles from './Registro.module.css';
 
 export const Registro = () => {
     const navigate = useNavigate();
-
+    const { iniciarSesion } = useAuth();
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
@@ -21,7 +22,8 @@ export const Registro = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); // Evita que la página recargue
-        setError(''); 
+        setError('');
+
         //confirmación de contraseña
         if (formData.password !== formData.confirmarPassword) {
             setError('Las contraseñas no coinciden');
@@ -29,15 +31,21 @@ export const Registro = () => {
         }
 
         try {
-            await registrarUsuario({
+            const respuesta = await registrarUsuario({
                 nombre: formData.nombre,
                 apellido: formData.apellido,
                 email: formData.email,
                 password: formData.password
             });
 
-            alert('¡Usuario creado con éxito!');
-            navigate('/login'); 
+            if (respuesta && respuesta.token) {
+                iniciarSesion(formData.nombre, respuesta.token);
+                alert(`¡Cuenta creada con éxito! Bienvenida/o, ${formData.nombre}.`);
+                navigate('/mis-recetas');
+            } else {
+                alert('¡Usuario creado con éxito! Por favor, iniciá sesión.');
+                navigate('/login');
+            }
 
         } catch (err) {
             if (err instanceof Error) {
