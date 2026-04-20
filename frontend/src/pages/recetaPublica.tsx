@@ -40,44 +40,44 @@ export const RecetaPublica = () => {
     if (cargando) return <div className={styles.loader}>Cargando receta...</div>;
     
     if (error || !receta) return (
-        <div className={styles.container} style={{textAlign: 'center', marginTop: '5rem'}}>
+        <div className={`${styles.container} ${styles.errorContainer}`}>
             <h2>Ups, no encontramos esta receta 😕</h2>
             <p>{error}</p>
-            <Link to="/" className={`${styles.btn} ${styles.btnNormal} ${styles.btnRojo}`}>Ir al inicio</Link>
+            {/* Cambiado a btnNaranja */}
+            <Link to="/" className={`${styles.btn} ${styles.btnNormal} ${styles.btnNaranja}`}>Ir al inicio</Link>
         </div>
     );
 
     return (
-        <div className={styles.container} style={{maxWidth: '800px'}}>
+        <div className={styles.containerDetail}>
             <article className={styles.card}>
                 {receta.imagen_url && (
-                    <div style={{width: '100%', height: '400px', overflow: 'hidden'}}>
+                    <div className={styles.detailImageWrapper}>
                         <img 
                             src={receta.imagen_url} 
                             alt={receta.titulo} 
-                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
                         />
                     </div>
                 )}
                 
-                <div className={styles.cardBody} style={{padding: '3rem'}}>
-                    <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', color: '#333'}}>
+                <div className={styles.detailBody}>
+                    <h1 className={styles.detailTitle}>
                         {receta.titulo}
                     </h1>
                     
-                    <p style={{color: '#888', marginBottom: '2rem'}}>
+                    <p className={styles.detailMeta}>
                         👨‍🍳 Creado por: <strong>{receta.usuario.nombre} {receta.usuario.apellido}</strong> <br/>
                         📅 {new Date(receta.fecha_creacion).toLocaleDateString()}
                     </p>
 
-                    <h3 style={{color: '#e63946'}}>Descripción</h3>
-                    <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '2rem', color: '#444'}}>
+                    <h3 className={styles.sectionTitle}>Descripción</h3>
+                    <p className={styles.detailText}>
                         {receta.descripcion}
                     </p>
 
-                    <h3 style={{color: '#e63946'}}>Ingredientes</h3>
-                    <div style={{background: '#fff9fa', padding: '1.5rem', borderRadius: '8px', border: '1px solid #ffe5e9'}}>
-                        <p style={{fontSize: '1.1rem', whiteSpace: 'pre-wrap', margin: 0, color: '#444'}}>
+                    <h3 className={styles.sectionTitle}>Ingredientes</h3>
+                    <div className={styles.ingredientsBox}>
+                        <p className={styles.ingredientsText}>
                             {receta.ingredientes}
                         </p>
                     </div>

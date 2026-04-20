@@ -5,19 +5,38 @@
 }
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     margin-bottom: 3rem;
-    text-align: left;
+    border-left: 5px solid #F08D39;
 }
 
-.header h1 {
+.headerInfo h1 {
     color: #333;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    margin-top: 0;
     margin-bottom: 0.5rem;
 }
 
-.header p {
+.headerInfo p {
     color: #666;
     font-size: 1.1rem;
+    margin: 0;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 5rem 2rem;
+    background-color: #fdfaf6;
+    border: 2px dashed #F3BE7A;
+    border-radius: 12px;
+    color: #888;
+    font-size: 1.2rem;
 }
 
 .gridRecetas {
@@ -29,14 +48,15 @@
 .card {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #eee;
 }
 
 .card:hover {
     transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(240, 141, 57, 0.15);
 }
 
 .imageWrapper {
@@ -57,7 +77,7 @@
 
 .fecha {
     font-size: 0.8rem;
-    color: #e63946;
+    color: #F08D39;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -80,18 +100,6 @@
     font-size: 0.9rem;
 }
 
-.btnPrincipal {
-    background: #e63946;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 1rem;
-}
-
-/* --- ESTILOS DEL MODAL --- */
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -111,13 +119,20 @@
     border-radius: 12px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     animation: aparecer 0.3s ease-out;
 }
 
 @keyframes aparecer {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modalContent h2 {
@@ -132,11 +147,18 @@
     gap: 1rem;
 }
 
-.formReceta input, .formReceta textarea {
+.formReceta input,
+.formReceta textarea {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-family: inherit;
+}
+
+.formReceta input:focus,
+.formReceta textarea:focus {
+    outline: none;
+    border-color: #F08D39;
 }
 
 .formReceta textarea {
@@ -173,33 +195,141 @@
 
 .btnChico {
     padding: 0.5rem 1rem;
-    border-radius: 4px; 
+    border-radius: 4px;
 }
 
-.btnRojo {
-    background: #e63946;
+.btnNaranja {
+    background: #F08D39;
     color: white;
     border: none;
 }
-.btnRojo:hover { background: #d62828; }
+
+.btnNaranja:hover {
+    background: #d67a2b;
+    transform: translateY(-2px);
+}
 
 .btnGris {
     background: transparent;
     color: #666;
     border: 1px solid #ccc;
 }
-.btnGris:hover { background: #eee; }
+
+.btnGris:hover {
+    background: #eee;
+}
 
 .btnOutlineAzul {
     background: transparent;
     color: #0077b6;
     border: 1px solid #0077b6;
 }
-.btnOutlineAzul:hover { background: #0077b6; color: white; }
 
-.btnOutlineRojo {
-    background: transparent;
-    color: #e63946;
-    border: 1px solid #e63946;
+.btnOutlineAzul:hover {
+    background: #0077b6;
+    color: white;
 }
-.btnOutlineRojo:hover { background: #e63946; color: white; }
+
+.btnOutlineNaranja {
+    background: transparent;
+    color: #F08D39;
+    border: 1px solid #F08D39;
+}
+
+.btnOutlineNaranja:hover {
+    background: #F08D39;
+    color: white;
+}
+
+.containerDetail {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.errorContainer {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.detailImageWrapper {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.detailImageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detailBody {
+    padding: 3rem;
+}
+
+.detailTitle {
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.detailMeta {
+    color: #888;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.sectionTitle {
+    color: #F08D39; 
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.detailText {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #444;
+}
+
+.ingredientsBox {
+    background: #fdfaf6; 
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #f3d4b6; 
+}
+
+.ingredientsText {
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+    margin: 0;
+    color: #444;
+}
+
+.autor {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.contenedorCalificacion {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.tituloCalificacion {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333; 
+}
+
+.textoCalificaciones {
+    color: #888;
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+}

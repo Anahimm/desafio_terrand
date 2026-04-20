@@ -43,7 +43,7 @@ export const RecetaModal = ({ isOpen, onClose, onSubmit, isEditing, nuevaReceta,
                         <button type="button" className={`${styles.btn} ${styles.btnNormal} ${styles.btnGris}`} onClick={onClose}>
                             Cancelar
                         </button>
-                        <button type="submit" className={`${styles.btn} ${styles.btnNormal} ${styles.btnRojo}`}>
+                        <button type="submit" className={`${styles.btn} ${styles.btnNormal} ${styles.btnNaranja}`}>
                             {isEditing ? 'Guardar Cambios' : 'Guardar Receta'}
                         </button>
                     </div>

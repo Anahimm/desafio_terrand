@@ -1,5 +1,5 @@
 import styles from '../pages/misRecetas.module.css';
-import { Calificador } from './Calificador';
+import { Calificador } from './calificador';
 
 export interface Receta {
     id: number;
@@ -9,7 +9,6 @@ export interface Receta {
     imagen_url?: string;
     fecha_creacion: string;
     usuario_id: number;
-    //datos para las calificaciones
     usuario?: { nombre: string; apellido: string };
     calificaciones?: { puntaje: number }[];
 }
@@ -27,6 +26,7 @@ export const RecetaCard = ({ receta, onEditar, onEliminar, onCopiar, esPublica, 
     const totalVotos = receta.calificaciones?.length || 0;
     const suma = receta.calificaciones?.reduce((acc, c) => acc + c.puntaje, 0) || 0;
     const promedio = totalVotos > 0 ? Math.round(suma / totalVotos) : 0;
+    
     return (
         <article className={styles.card}>
             {receta.imagen_url && (
@@ -40,30 +40,35 @@ export const RecetaCard = ({ receta, onEditar, onEliminar, onCopiar, esPublica, 
                     />
                 </div>
             )}
+            
             <div className={styles.cardBody}>
                 <span className={styles.fecha}>
                     {new Date(receta.fecha_creacion).toLocaleDateString()}
                 </span>
+                
                 <h3>{receta.titulo}</h3>
+                
                 {esPublica && receta.usuario && (
-                    <p style={{ color: '#666', fontStyle: 'italic', marginBottom: '10px' }}>
+                    <p className={styles.autor}>
                         👨‍🍳 Por: {receta.usuario.nombre} {receta.usuario.apellido}
                     </p>
                 )}
+                
                 <p className={styles.descripcion}>{receta.descripcion}</p>
+                
                 <div className={styles.detalles}>
                     <strong>Ingredientes:</strong>
                     <p>{receta.ingredientes}</p>
                 </div>
 
                 {esPublica ? (
-                    <div style={{ marginTop: '15px', borderTop: '1px solid #eee', paddingTop: '10px' }}>
-                        <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>CALIFICACIÓN:</p>
+                    <div className={styles.contenedorCalificacion}>
+                        <p className={styles.tituloCalificacion}>CALIFICACIÓN:</p>
                         <Calificador
                             puntaje={promedio}
                             onCalificar={(valor) => onVotar && onVotar(valor)}
                         />
-                        <small style={{ color: '#888', display: 'block', marginTop: '5px' }}>
+                        <small className={styles.textoCalificaciones}>
                             {totalVotos} calificaciones
                         </small>
                     </div>
@@ -72,7 +77,7 @@ export const RecetaCard = ({ receta, onEditar, onEliminar, onCopiar, esPublica, 
                         <button onClick={onEditar} className={`${styles.btn} ${styles.btnChico} ${styles.btnOutlineAzul}`}>
                             Editar
                         </button>
-                        <button onClick={onEliminar} className={`${styles.btn} ${styles.btnChico} ${styles.btnOutlineRojo}`}>
+                        <button onClick={onEliminar} className={`${styles.btn} ${styles.btnChico} ${styles.btnOutlineNaranja}`}>
                             Eliminar
                         </button>
                         <button onClick={onCopiar} className={`${styles.btn} ${styles.btnChico} ${styles.btnGris}`}>

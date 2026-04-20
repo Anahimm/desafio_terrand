@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { registrarUsuario } from '../services/auth.service';
 import { useAuth } from '../context/AuthContext';
-import styles from './Registro.module.css';
+import styles from './registro.module.css';
 
 export const Registro = () => {
     const navigate = useNavigate();
@@ -62,13 +62,38 @@ export const Registro = () => {
                 <h2>Crear Cuenta</h2>
                 {error && <p className={styles.error}>{error}</p>}
 
-                <input type="text" name="nombre" value={formData.nombre} placeholder="Nombre" onChange={handleChange} required />
-                <input type="text" name="apellido" value={formData.apellido} placeholder="Apellido" onChange={handleChange} required />
-                <input type="email" name="email" value={formData.email} placeholder="Correo Electrónico" onChange={handleChange} required />
-                <input type="password" name="password" value={formData.password} placeholder="Contraseña" minLength={6} onChange={handleChange} required />
-                <input type="password" name="confirmarPassword" value={formData.confirmarPassword} placeholder="Repetir Contraseña" minLength={6} onChange={handleChange} required />
+                {/* Input Nombre */}
+                <div className={styles.inputContainer}>
+                    <input type="text" name="nombre" value={formData.nombre} placeholder="Nombre" onChange={handleChange} required />
+                </div>
+
+                {/* Input Apellido */}
+                <div className={styles.inputContainer}>
+                    <input type="text" name="apellido" value={formData.apellido} placeholder="Apellido" onChange={handleChange} required />
+                </div>
+
+                {/* Input Email */}
+                <div className={styles.inputContainer}>
+
+                    <input type="email" name="email" value={formData.email} placeholder="Correo Electrónico" onChange={handleChange} required />
+                </div>
+
+                {/* Input Contraseña */}
+                <div className={styles.inputContainer}>
+
+                    <input type="password" name="password" value={formData.password} placeholder="Contraseña" minLength={6} onChange={handleChange} required />
+                </div>
+
+                {/* Input Repetir Contraseña */}
+                <div className={styles.inputContainer}>
+
+                    <input type="password" name="confirmarPassword" value={formData.confirmarPassword} placeholder="Repetir Contraseña" minLength={6} onChange={handleChange} required />
+                </div>
 
                 <button type="submit">Registrarse</button>
+                <p className={styles.linkText}>
+                    ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión acá</Link>
+                </p>
             </form>
         </div>
     );

@@ -37,7 +37,6 @@ export const MisRecetas = () => {
     }, []);
 
     // FUNCIONES PARA MANEJAR EL MODAL Y ELIMINAR
-
     const abrirModalCrear = () => {
         setRecetaEditandoId(null);
         setNuevaReceta({ titulo: '', descripcion: '', ingredientes: '', imagen_url: '' });
@@ -109,16 +108,18 @@ export const MisRecetas = () => {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
+                <div className={styles.headerInfo}>
                 <h1>¡Hola, {nombre || 'Chef'}! 👩‍🍳</h1>
-                <p>Recetas propias</p>
-                <button className={`${styles.btn} ${styles.btnNormal} ${styles.btnRojo}`} style={{ marginTop: '1rem' }} onClick={abrirModalCrear}>
+                <p>Acá podés gestionar todas tus recetas</p>
+                </div>
+                <button className={`${styles.btn} ${styles.btnNormal} ${styles.btnNaranja}`} onClick={abrirModalCrear}>
                     + Crear Receta
                 </button>
             </header>
 
             {recetas.length === 0 ? (
                 <div className={styles.emptyState}>
-                    <p>Todavía no tenés recetas</p>
+                    <p>Todavía no tenés recetas cargadas... 😔</p>
                 </div>
             ) : (
                 <div className={styles.gridRecetas}>

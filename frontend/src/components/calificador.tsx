@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Calificador.module.css';
+import styles from './calificador.module.css';
 
 const COCINEROS = [
     { id: 1, nombre: "Paulina", img: "/chefs/paulina.jpg" },

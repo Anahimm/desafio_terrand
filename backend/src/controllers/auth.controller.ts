@@ -32,8 +32,12 @@ export const registro = async (req: Request, res: Response): Promise<void> => {
             },
         });
 
+        //token de sesión automático para este nuevo usuario
+        const token = jwt.sign({ userId: nuevoUsuario.id }, JWT_SECRET, { expiresIn: '1d' });
+
         res.status(201).json({ 
-            mensaje: 'Usuario creado', 
+            mensaje: 'Usuario creado y logueado con éxito', 
+            token,
             usuario: { id: nuevoUsuario.id, email: nuevoUsuario.email } 
         });
     } catch (error) {

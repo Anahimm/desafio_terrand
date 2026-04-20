@@ -1,0 +1,20 @@
+
+:root {
+    --color-fondo: #E8EDF2;
+    --color-texto: #333333;
+    --color-primario: #5E7AC4;
+    --fuente-principal: 'Inter', system-ui, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    -webkit-font-smoothing: antialiased;
+}

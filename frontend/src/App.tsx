@@ -5,14 +5,14 @@ import { Login } from './pages/login';
 import { Registro } from './pages/registro';
 import { MisRecetas } from './pages/misRecetas';
 import { RecetaPublica } from './pages/recetaPublica';
-import { Explorar } from './pages/Explorar';
+import { Explorar } from './pages/explorar';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
-        <div style={{ padding: '2rem' }}>
+        <main>
           <Routes>
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
@@ -21,7 +21,7 @@ function App() {
             <Route path="/receta/:id" element={<RecetaPublica />} />
             <Route path="/explorar" element={<Explorar />} />
           </Routes>
-        </div>
+        </main>
       </BrowserRouter>
     </AuthProvider>
   );
