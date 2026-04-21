@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import styles from './calificador.module.css';
 
+import imgPaulina from '../assets/chefs/paulina.jpg';
+import imgDonato from '../assets/chefs/donato.jpg';
+import imgMaru from '../assets/chefs/maru.jpg';
+import imgBetular from '../assets/chefs/betular.jpg';
+import imgMartitegui from '../assets/chefs/martitegui.jpg';
+
 const COCINEROS = [
-    { id: 1, nombre: "Paulina", img: "/chefs/paulina.jpg" },
-    { id: 2, nombre: "Donato", img: "/chefs/donato.jpg" },
-    { id: 3, nombre: "Maru", img: "/chefs/maru.jpg" },
-    { id: 4, nombre: "Betular", img: "/chefs/betular.jpg" },
-    { id: 5, nombre: "Martitegui", img: "/chefs/martitegui.jpg" }
+    { id: 1, nombre: "Paulina", img: imgPaulina },
+    { id: 2, nombre: "Donato", img: imgDonato },
+    { id: 3, nombre: "Maru", img: imgMaru },
+    { id: 4, nombre: "Betular", img: imgBetular },
+    { id: 5, nombre: "Martitegui", img: imgMartitegui }
 ];
 
 interface Props {
@@ -21,7 +27,7 @@ export const Calificador = ({ puntaje, onCalificar }: Props) => {
         <div className={styles.contenedor}>
             {COCINEROS.map((chef) => {
                 const activo = chef.id <= (hover || puntaje);
-                
+
                 return (
                     <img
                         key={chef.id}
