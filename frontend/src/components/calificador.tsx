@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './calificador.module.css';
 
 import imgPaulina from '../assets/chefs/paulina.jpg';

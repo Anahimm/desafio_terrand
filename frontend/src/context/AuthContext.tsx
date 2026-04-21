@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 interface AuthContextType {
     nombreUsuario: string | null;
@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const nombreGuardado = localStorage.getItem('nombreUsuario');
         if (nombreGuardado) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setNombreUsuario(nombreGuardado);
         }
     }, []);
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
