@@ -63,3 +63,23 @@
     background-color: #d67a2b;
     transform: translateY(-2px);
 }
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem; 
+        gap: 1rem; 
+        text-align: center;
+    }
+
+    .logo a {
+        font-size: 1.4rem; 
+    }
+
+    .links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem; 
+        width: 100%;
+    }
+}

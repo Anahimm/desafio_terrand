@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { registrarUsuario } from '../services/auth.service';
 import { useAuth } from '../context/AuthContext';
 import styles from './registro.module.css';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react'; // <-- Agregamos User a la lista
 
 export const Registro = () => {
     const navigate = useNavigate();
@@ -16,15 +17,19 @@ export const Registro = () => {
     });
 
     const [error, setError] = useState('');
+    
+    // Dos estados independientes para que cada ojito funcione por separado
+    const [mostrarPassword, setMostrarPassword] = useState(false);
+    const [mostrarConfirmarPassword, setMostrarConfirmarPassword] = useState(false);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Evita que la página recargue
+        e.preventDefault();
         setError('');
 
-        //confirmación de contraseña
         if (formData.password !== formData.confirmarPassword) {
             setError('Las contraseñas no coinciden');
             return;
@@ -64,30 +69,64 @@ export const Registro = () => {
 
                 {/* Input Nombre */}
                 <div className={styles.inputContainer}>
+                    <span><User size={20} /></span>
                     <input type="text" name="nombre" value={formData.nombre} placeholder="Nombre" onChange={handleChange} required />
                 </div>
 
                 {/* Input Apellido */}
                 <div className={styles.inputContainer}>
+                    <span><User size={20} /></span>
                     <input type="text" name="apellido" value={formData.apellido} placeholder="Apellido" onChange={handleChange} required />
                 </div>
 
                 {/* Input Email */}
                 <div className={styles.inputContainer}>
-
+                    <span><Mail size={20} /></span>
                     <input type="email" name="email" value={formData.email} placeholder="Correo Electrónico" onChange={handleChange} required />
                 </div>
 
                 {/* Input Contraseña */}
                 <div className={styles.inputContainer}>
-
-                    <input type="password" name="password" value={formData.password} placeholder="Contraseña" minLength={6} onChange={handleChange} required />
+                    <span><Lock size={20} /></span>
+                    <input 
+                        type={mostrarPassword ? "text" : "password"} 
+                        name="password" 
+                        value={formData.password} 
+                        placeholder="Contraseña" 
+                        minLength={6} 
+                        onChange={handleChange} 
+                        required 
+                    />
+                    <button
+                        type="button"
+                        className={styles.btnOjito}
+                        onClick={() => setMostrarPassword(!mostrarPassword)}
+                        aria-label={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                        {mostrarPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                    </button>
                 </div>
 
                 {/* Input Repetir Contraseña */}
                 <div className={styles.inputContainer}>
-
-                    <input type="password" name="confirmarPassword" value={formData.confirmarPassword} placeholder="Repetir Contraseña" minLength={6} onChange={handleChange} required />
+                    <span><Lock size={20} /></span>
+                    <input 
+                        type={mostrarConfirmarPassword ? "text" : "password"} 
+                        name="confirmarPassword" 
+                        value={formData.confirmarPassword} 
+                        placeholder="Repetir Contraseña" 
+                        minLength={6} 
+                        onChange={handleChange} 
+                        required 
+                    />
+                    <button
+                        type="button"
+                        className={styles.btnOjito}
+                        onClick={() => setMostrarConfirmarPassword(!mostrarConfirmarPassword)}
+                        aria-label={mostrarConfirmarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                        {mostrarConfirmarPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                    </button>
                 </div>
 
                 <button type="submit">Registrarse</button>

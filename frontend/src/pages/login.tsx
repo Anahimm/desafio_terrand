@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { iniciarSesion as loginAPI } from '../services/auth.service';
 import { useAuth } from '../context/AuthContext';
 import styles from './login.module.css';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const Login = () => {
     });
 
     const [error, setError] = useState('');
+    const [mostrarPassword, setMostrarPassword] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,10 +53,7 @@ export const Login = () => {
 
                 <div className={styles.inputContainer}>
                     <span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
+                        <Mail size={20} />
                     </span>
                     <input
                         type="email"
@@ -65,21 +64,27 @@ export const Login = () => {
                         required
                     />
                 </div>
+                
                 <div className={styles.inputContainer}>
                     <span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
+                        <Lock size={20} />
                     </span>
                     <input
-                        type="password"
+                        type={mostrarPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         placeholder="Contraseña"
                         onChange={handleChange}
                         required
                     />
+                    <button
+                        type="button"
+                        className={styles.btnOjito}
+                        onClick={() => setMostrarPassword(!mostrarPassword)}
+                        aria-label={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                        {mostrarPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                    </button>
                 </div>
 
                 <button type="submit">Entrar</button>
