@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/recetas';
+const API_URL = 'https://desafio-terrand-uyil.onrender.com/api/recetas';
 
 export const obtenerMisRecetas = async () => {
     const token = localStorage.getItem('token');

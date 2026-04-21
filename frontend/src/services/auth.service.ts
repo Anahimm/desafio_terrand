@@ -6,7 +6,7 @@ interface DatosRegistro {
 }
 
 
-const API_URL = 'http://localhost:3000/api/auth';
+const API_URL = 'https://desafio-terrand-uyil.onrender.com/api/auth';
 
 export const registrarUsuario = async (datos: DatosRegistro) => {
     const respuesta = await fetch(`${API_URL}/registro`, {
