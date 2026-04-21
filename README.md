@@ -2,6 +2,13 @@
 
 Proyecto desarrollado para el desafío técnico de **Terrand**. Se trata de una plataforma de gestión de recetas culinarias donde los usuarios pueden registrarse, administrar sus propias recetas y compartir enlaces públicos de sus creaciones, incorporando un sistema de calificación interactivo inspirado en la gastronomía argentina.
 
+🔗 Link al Proyecto en Vivo: [las recetas de Anahí](https://lasrecetasdeanahi.netlify.app/)
+
+> **👤 Credenciales de Prueba:**
+> Podés crear un usuario nuevo o usar este de prueba: 
+> * **Mail:** test@terrand.com 
+> * **Pass:** 123456
+
 ## 🚀 Tecnologías Utilizadas
 
 ### Frontend
@@ -16,6 +23,11 @@ Proyecto desarrollado para el desafío técnico de **Terrand**. Se trata de una 
 * **Prisma ORM** para el modelado de datos, migraciones y consultas Type-safe
 * **PostgreSQL** como motor de base de datos relacional (gestionado mediante **DBeaver**)
 * **JWT (JSON Web Tokens)** para la gestión segura de sesiones y protección de rutas
+
+### Despliegue en la Nube (Deployment)
+* **Frontend:** Alojado en **Netlify** con despliegue automático
+* **Backend:** Desplegado como Web Service en **Render**
+* **Base de Datos:** Alojada en **Neon** (Serverless PostgreSQL)
 
 ---
 

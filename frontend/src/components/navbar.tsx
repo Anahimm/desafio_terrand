@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './navbar.module.css';
+import logoImagen from '../assets/logo_app.jpg';
 
 export const Navbar = () => {
     const { nombreUsuario, cerrarSesion } = useAuth();
@@ -14,8 +15,8 @@ export const Navbar = () => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.logo}>
-                <Link to="/">
-                    Las recetas de Anahí 🍰
+                <Link to={nombreUsuario ? "/mis-recetas" : "/explorar"} className={styles.logoLink}>
+                <img src={logoImagen} alt="Logo" className={styles.logoImg} />
                 </Link>
             </div>
 
